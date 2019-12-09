@@ -1,0 +1,65 @@
+
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card mx-4 mt-4">
+            <div class="card-body p-4">
+              <h3 class="pb-4 text-center"> Update Profile </h3>
+            <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <label for="{{ form.username.id_for_label}}"><strong>{{ form.username.label }}</strong></label>
+                      {% render_field form.username class="form-control w-100" placeholder='Username' %}
+                      {% for error in form.user_type.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+                    <div class="input-group mb-3">
+                        <label for="{{ form.first_name.id_for_label }}"><strong>{{ form.first_name.label }}</strong></label>
+                      {% render_field form.first_name class="form-control w-100" placeholder='First Name' %}
+                        {% for error in form.first_name.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+
+                    <div class="input-group mb-3">
+                        <label for="{{ form.last_name.id_for_label }}"><strong>{{ form.last_name.label }}</strong></label>
+                      {% render_field form.last_name class="form-control w-100" placeholder='Last Name' %}
+                      {% for error in form.last_name.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+                    <div class="input-group mb-3">
+                        <label for="{{ form.email.id_for_label }}"><strong>{{ form.email.label }}</strong></label>
+                      {% render_field form.email class="form-control w-100" placeholder='Email Address' %}
+                      {% for error in form.email.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+
+             <div class="input-group mb-3">
+              <label for="{{ form.phone_number.id_for_label }}"><strong>{{ form.phone_number.label }}</strong></label>
+              {% render_field form.phone_number class="form-control w-100" placeholder='phone_number' %}
+              {% for error in form.phone_number.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+           </div>
+           <div class="input-group mb-3 d-none">
+              <label for="{{ form.password.id_for_label }}"><strong>{{ form.password.label }}</strong></label>
+              {% render_field form.password class="form-control w-100" placeholder='password' %}
+              {% for error in form.password.errors %}
+                <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+            </div>
+           
+                    <button class="btn btn-block btn-success mt-4" type="submit">Save changes</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

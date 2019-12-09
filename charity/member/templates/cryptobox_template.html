@@ -1,0 +1,126 @@
+{% extends 'base_no_sidebar.html' %}
+
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block content %}
+	<!-- <body>	
+		<div align= "center" style="min-width:530px">
+			<iframe id="iframeID" style="border-radius:15px;border:1px solid #eee;padding:3px 6px;margin:10px;" scrolling="no" marginheight="0" marginwidth="0" frameborder="0" width="530" height="230"></iframe>
+		</div>
+		<script>
+			/* You must call the cryptobox_show function and set as parameters (In this specific order) all the variables you are receiving from the cryptobox_rendering view in back end.*/
+			cryptobox_show({{boxID}}, '{{coin_name}}', '{{public_key}}', {{amount}}, 0, '{{period}}', '{{language}}', 'iframeID', '{{userID}}', 'MANUAL', '{{orderID}}', '', '', '{{hash}}', {{width}}, {{height}});
+		</script>
+	</body> -->
+	
+		<!-- <div align="center" style="min-width:530px">
+			<iframe id="box1989" style="border-radius:15px;border:1px solid #eee;padding:3px 6px;margin:10px;" scrolling="no" marginheight="0" marginwidth="0" frameborder="0" width="530" height="230"></iframe>
+		</div>
+		<script type="text/javascript">  Amount $5.50 -->
+			 <!-- cryptobox_show({{ boxID }}, '{{coin_name}}','{{public_key}}' , {{amount}}, 25, '{{period}}', '{{language}}', 'box1989' , '{{userID}}', 'MANUAL', '{{orderID}}', '', '', '{{hash}}' ,{{width}}, {{height}}); -->
+		<!-- </script> --> 
+		<!-- <div>
+			<a class="donate-with-crypto"
+			   href="https://commerce.coinbase.com/checkout/6da189f179bc31">
+			  <span>Donate with Crypto</span>
+			</a>
+			<script src="https://commerce.coinbase.com/v1/checkout.js">
+			</script>
+		  </div> -->	
+		  <br><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      
+    </div>
+    <div class="col-sm">
+	<h1 class="text-center text-primary">Charity World</h1>
+      <p class="text-center"> prepare himself so that he can serve the people
+	  when he is grown up. Student life is not the proper
+	  time to do things. It is the time to ‘prepare’ for 
+	  things to be done in future. Students life Is the 
+	  proper time to build one’s character. A good man is 
+	  loved and respected by all. A student should try to
+	  become a goodstudent life. So student life is 
+	  important for life. Every student should use this 
+	  important time properly.</p>
+	  <br><br>
+	  <br>
+	  
+	  
+	  <img src="{% static 'img/Asset_2.svg' %}" class="ml-3" width="300" height="280">
+	  <br><br><br>
+	  
+    </div>
+    <div class="col-sm">
+      
+    </div>
+  </div>
+</div>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      
+    </div>
+    <div class="col-sm">
+	<button type="button" class="btn btn-primary ml-5"><a class="text-light" href="{% url 'member:dashboard' %}" >go to dashboard</a>  </button>
+	  
+    </div>
+	
+    <div class="col-sm">
+     <a class="buy-with-crypto" data-cache-disabled="true" data-custom="MY_CUSTOM_DATA"
+		href="https://commerce.coinbase.com/checkout/83f2f635-8bc7-474a-b9b5-1b72317308ae">
+	   <span>complete payment with Crypto</span>
+	 </a>
+	 <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+	 </script>
+    </div>
+	 <div class="col-sm">
+      
+    </div>
+	
+  </div>
+</div>
+<!-- <br>
+ 
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
+	  
+	  <img src = "{% static 'img/Asset_2.svg' %}" width="300" height="280">
+	  
+	  
+    <div class="col-sm">
+			<button type="button" class="btn btn-primary">Active your account</button>
+			<button type="button" class="btn btn-info"><a class="buy-with-crypto" data-cache-disabled="true" data-custom="MY_CUSTOM_DATA"
+			  href="https://commerce.coinbase.com/checkout/83f2f635-8bc7-474a-b9b5-1b72317308ae">
+			 <span>complete payment with Crypto</span>
+		   </a>
+		   <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+		   </script></button>
+		  </div>
+    </div>
+  </div>
+</div> -->
+		  <!-- <div>
+			<a class="buy-with-crypto" data-cache-disabled="true" data-custom="MY_CUSTOM_DATA"
+			   href="https://commerce.coinbase.com/checkout/83f2f635-8bc7-474a-b9b5-1b72317308ae">
+			  <span>complete payment with Crypto</span>
+			</a>
+			<script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+			</script>
+		  </div> -->
+		 
+		  <!-- <h1>charge custom data</h1>{{charge_custom_data_list}}
+		  <h1>charge name list</h1>{{charge_name_list}}
+		  <h1>charge email list</h1>{{charge_email_list}}
+		  <h1>charges</h1>{{charges}}
+		  -->
+{% endblock %}

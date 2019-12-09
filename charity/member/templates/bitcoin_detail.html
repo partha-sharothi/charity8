@@ -1,0 +1,43 @@
+
+
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card mx-4 mt-4">
+            <div class="card-body p-4">
+              <h3 class="pb-4 text-center">Bitcoin Address</h3>
+              <h4 class="pb-4 text-center">User is {{ user.username }}</h4>
+              {% if btc %}
+              your btc address is <br /> <br />
+               {{ btc }}
+               <p>If you want to change it, Please inform in support .</p>
+              {% else %}
+              
+              
+            <form method="POST">
+                    {% csrf_token %}
+
+             <div class="input-group mb-3">
+              <label for="{{ form.bitcoin_address.id_for_label }}"><strong>{{ form.bitcoin_address.label }}</strong></label>
+              {% render_field form.bitcoin_address class="form-control w-100" placeholder='bitcoin_address' %}
+              {% for error in form.bitcoin_address.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+           </div>
+ 
+
+
+                    <button class="btn btn-block btn-success mt-4" type="submit">Submit</button>
+            </form>
+            {% endif %}
+            
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}      

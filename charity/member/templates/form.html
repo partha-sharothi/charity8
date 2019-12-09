@@ -1,0 +1,112 @@
+
+{% extends 'base_no_sidebar.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card mx-4 mt-4">
+            <div class="card-body p-4">
+              <h3 class="pb-4 text-center">New User</h3>
+              <p>Sponsor User is {{ referral_user.username }}</p>
+            <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <label for="{{ user_info_form.username.id_for_label}}"><strong>{{ user_info_form.username.label }}</strong></label>
+                      {% render_field user_info_form.username class="form-control w-100" placeholder='Username' %}
+                      {% for error in user_info_form.username.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+                    <div class="input-group mb-3">
+                        <label for="{{ user_info_form.first_name.id_for_label }}"><strong>{{ user_info_form.first_name.label }}</strong></label>
+                      {% render_field user_info_form.first_name class="form-control w-100" placeholder='First Name' %}
+                        {% for error in user_info_form.first_name.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+
+                    <div class="input-group mb-3">
+                        <label for="{{ user_info_form.last_name.id_for_label }}"><strong>{{ user_info_form.last_name.label }}</strong></label>
+                      {% render_field user_info_form.last_name class="form-control w-100" placeholder='Last Name' %}
+                      {% for error in user_info_form.last_name.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+                    <div class="input-group mb-3">
+                        <label for="{{ user_info_form.email.id_for_label }}"><strong>{{ user_info_form.email.label }}</strong></label>
+                      {% render_field user_info_form.email class="form-control w-100" placeholder='Email Address' %}
+                      {% for error in user_info_form.email.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+
+              
+              <div class="input-group mb-3">
+                <label for="{{ user_info_form.password.id_for_label }}"><strong>{{ user_info_form.password.label }}</strong></label>
+              {% render_field user_info_form.password class="form-control w-100" id="password" placeholder='Password' onkeyup='check();' %}
+              {% for error in user_info_form.password.errors %}
+                <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+             </div>
+                           
+             <div class="input-group mb-3">
+              <label for="{{ user_info_form.confirm_password.id_for_label }}"><strong>{{ user_info_form.confirm_password.label }}</strong></label>
+            {% render_field user_info_form.confirm_password class="form-control w-100" id="confirm_password" placeholder='Confirm Password' onkeyup='check();' %}
+            {% for error in user_info_form.confirm_password.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+            <span id='message'></span>
+           </div>
+             <div class="input-group mb-3">
+              <label for="{{ profile_info_form.phone_number.id_for_label }}"><strong>{{ profile_info_form.phone_number.label }}</strong></label>
+              {% render_field profile_info_form.phone_number class="form-control w-100" placeholder='phone_number' %}
+              {% for error in profile_info_form.phone_number.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+           </div>
+           <div class="input-group mb-3">
+            <label for="{{ profile_info_form.country.id_for_label }}"><strong>{{ profile_info_form.country.label }}</strong></label>
+            {% render_field profile_info_form.country class="form-control w-100" placeholder='Country' %}
+            {% for error in profile_info_form.country.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+         </div>
+
+             <div class="input-group mb-3 d-none">
+                 <label for="{{ profile_info_form.sponsor.id_for_label }}"><strong>{{ profile_info_form.sponsor.label }}</strong></label>
+                   {% render_field profile_info_form.sponsor class="form-control w-100" placeholder='{{ referral_user.username }}' %}
+                  {% for error in profile_info_form.sponsor.errors %}
+                  <div class="text-danger">{{ error }}</div>
+                  {% endfor %}
+                </div>
+                    <button class="btn btn-block btn-success mt-4" type="submit">Submit</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+
+var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'matching';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'not matching';
+  }
+}
+
+</script>
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load widget_tweaks %}
+{% block content %}
+
+{% for application in applications %}
+  <b>Username :</b> {{ application.user_profile.username }}<br />
+  <b>Country :</b> {{ application.country.country }}<br />
+  
+  <img src='{{application.country.flag.url}}' height="60" width="100"/>
+
+<hr />
+{% endfor %}
+
+{% endblock %}

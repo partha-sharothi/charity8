@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="#">
+    <meta name="author" content="#">
+    <meta name="keyword" content="#">
+    <title>Charity</title>
+    <!-- Icons-->
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link href="{% static 'vendors/@coreui/icons/css/coreui-icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/pace-progress/css/pace.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script>
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img class="navbar-brand-full" src="{% static 'img/brand/Asset 2.svg' %}" width="120" height="55" alt="#">
+        <img class="navbar-brand-minimized" src="{% static 'img/brand/Asset 2.svg' %}" width="30" height="30" alt="#">
+      </a>
+      <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!--<ul class="nav navbar-nav d-md-down-none">-->
+        <!--<li class="nav-item px-3">-->
+          <!--<a class="nav-link" href="#">Dashboard</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item px-3">-->
+          <!--<a class="nav-link" href="#">Users</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item px-3">-->
+          <!--<a class="nav-link" href="#">Settings</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+      
+          <ul class="nav navbar-nav ml-auto">
+              
+              {% if user.is_authenticated %}
+              
+            
+              <!-- <li class="nav-item dropdown"> -->
+                <!-- <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> -->
+          
+                  
+                    
+                  
+                <!-- </a> -->
+           
+                <!-- <div class="dropdown-menu dropdown-menu-right"> -->
+                  <!--<div class="dropdown-header text-center">-->
+                    <!--<strong>Account</strong>-->
+                  <!--</div>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-bell-o"></i> Updates-->
+                    <!--<span class="badge badge-info">42</span>-->
+                  <!--</a>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-envelope-o"></i> Messages-->
+                    <!--<span class="badge badge-success">42</span>-->
+                  <!--</a>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-tasks"></i> Tasks-->
+                    <!--<span class="badge badge-danger">42</span>-->
+                  <!--</a>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-comments"></i> Comments-->
+                    <!--<span class="badge badge-warning">42</span>-->
+                  <!--</a>-->
+                  <!--<div class="dropdown-header text-center">-->
+                    <!--<strong>Settings</strong>-->
+                  <!--</div>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-user"></i> Profile</a>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-wrench"></i> Settings</a>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-usd"></i> Payments-->
+                    <!--<span class="badge badge-secondary">42</span>-->
+                  <!--</a>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-file"></i> Projects-->
+                    <!--<span class="badge badge-primary">42</span>-->
+                  <!--</a>-->
+                  <!--<div class="dropdown-divider"></div>-->
+                  <!--<a class="dropdown-item" href="#">-->
+                    <!--<i class="fa fa-shield"></i> Lock Account</a>-->
+                  <!-- <a class="dropdown-item" href="#"> -->
+                    <!-- <i class="fa fa-user"></i> Profile</a> -->
+                  <!-- <a class="dropdown-item" href="{% url 'logout' %}"> -->
+                    <!-- <i class="fa fa-lock"></i> Logout</a> -->
+                <!-- </div> -->
+              <!-- </li> -->
+              
+              <a class="nav-link" href="{% url 'logout' %}">
+                <i class="fa fa-user"></i></a>            
+              <li class="nav-item d-md-down-none col-sm-4">                
+                  <a class="nav-link" href="{% url 'logout' %}">
+                   Logout
+                </a>
+              </li>
+              {% else %}
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="fa fa-user"></i></a>
+              <li class="nav-item d-md-down-none col-sm-4">                 
+                <a class="nav-link" href="{% url 'login' %}">
+                   Login
+                </a>
+              </li>
+            
+             {% endif %} 
+      
+      
+      </ul>
+    </header>
+
+    <div class="app-body">
+        
+      <div class="sidebar">
+
+          <div class="c-sidebar-brand align-center" align="center">
+              <img src="{% static 'img/avatars/user-image.png' %}" alt="userid" width="150px" height="150px">
+            
+            </div>
+            <div class="c-sidebar-brand align-center">
+            <p align='center'>{{user.username}}</p>
+            </div>
+        <nav class="sidebar-nav">
+          
+          <ul class="nav">
+              
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'member:dashboard' %}">
+                    <i class="nav-icon icon-speedometer"></i> Dashboard</a>
+                </li>
+                
+              
+                <li class="nav-item nav-dropdown">
+                  <a class="nav-link nav-dropdown-toggle">
+                    <i class="nav-icon icon-credit-card"></i>Profile Manager</a>
+                <ul class ="nav-dropdown-items">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="{% url 'member:user' pk=user.pk %}">
+                          <i class="nav-icon fa fa-puzzle-piece"></i>New Profile</a>
+                      </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'member:update' pk=user.pk %}">
+                          <i class="nav-icon fa fa-puzzle-piece"></i>View / Edit Profile</a>
+                      </li>
+                       <li class="nav-item">
+                        <a class="nav-link" href="{% url 'member:bitcoin_detail' pk=user.pk %}">
+                          <i class="nav-icon fa fa-puzzle-piece"></i>Set Your Btc Address</a>
+                      </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'password_change' %}">
+                            <i class="nav-icon icon-credit-card"></i>Change Password</a>
+                        </li>
+                </ul>  
+                </li>
+                
+
+                
+              <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle">
+                  <i class="nav-icon icon-credit-card"></i>My Network</a>
+              <ul class ="nav-dropdown-items">
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'member:direct_sponsor_team' pk=user.pk %}">
+                        <i class="nav-icon fa fa-puzzle-piece"></i>Direct Sponsor</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'member:downline_team' pk=user.pk %}">
+                        <i class="nav-icon fa fa-puzzle-piece"></i>Downline Team</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'member:single_leg' pk=user.pk %}">
+                          <i class="nav-icon icon-credit-card"></i> Single Leg Team</a>
+                      </li>
+              </ul>  
+              </li>
+              
+
+
+              
+              <!-- <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle">
+                  <i class="nav-icon icon-credit-card"></i>E-Wallet section</a>
+              <ul class ="nav-dropdown-items">
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'member:level_income' pk=user.pk %}">
+                        <i class="nav-icon fa fa-puzzle-piece"></i> Level Income</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'member:reward_income' pk=user.pk %}">
+                          <i class="nav-icon icon-credit-card"></i> Reward Income</a>
+                      </li>
+                      
+
+              </ul>
+            </li> -->
+            
+
+                  <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle">
+                      <i class="nav-icon icon-credit-card"></i>Finance</a>
+                  <ul class ="nav-dropdown-items">
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'member:histry' pk=user.pk %}">
+                            <i class="nav-icon fa fa-puzzle-piece"></i>Histry</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'member:activate_account' pk=user.pk %}">
+                              <i class="nav-icon fa fa-puzzle-piece"></i>Activate Account</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'member:withdrawal_fund' pk=user.pk %}">
+                              <i class="nav-icon fa fa-puzzle-piece"></i>Withdrawal Fund</a>
+                          </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'member:withdrawal_report' pk=user.pk %}">
+                            <i class="nav-icon fa fa-puzzle-piece"></i>Withdrawal Report</a>
+                        </li>
+                  </ul>  
+                  </li>
+                
+                  <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle">
+                      <i class="nav-icon icon-credit-card"></i>Support</a>
+                      <ul class ="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'member:support_create' pk=user.pk %}">
+                              <i class="nav-icon fa fa-puzzle-piece"></i>Support Form</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'member:user_support_list' pk=user.pk %}">
+                              <i class="nav-icon fa fa-puzzle-piece"></i>Support Inbox</a>
+                          </li>
+                    </ul>  
+                  </li>
+                  
+          
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="nav-icon fa fa-cubes"></i> Contuct Us</a>
+                </li>
+
+
+          </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+      </div>
+
+      <main class="main">
+
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+
+              {% block content %}
+
+              {% endblock %}
+
+          </div>
+        </div>
+      </main>
+    </div>
+
+ 
+    <footer class="app-footer">
+      <div>
+        <span>© {% now "Y" %}, All Rights Reserved by Charity.</span>
+      </div>
+    </footer>
+    {% block extra_script %}
+
+    
+    {% endblock %}
+    <!-- CoreUI and necessary plugins-->
+    <script src="{% static 'vendors/jquery/js/jquery.min.js' %}"></script>
+    <script src="{% static 'vendors/popper.js/js/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/pace-progress/js/pace.min.js' %}"></script>
+    <script src="{% static 'vendors/perfect-scrollbar/js/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'vendors/@coreui/coreui/js/coreui.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+  </body>
+</html>

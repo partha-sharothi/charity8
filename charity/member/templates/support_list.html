@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<h3 class="text-center text-black"></h3>
+<br />
+
+<div class="container">
+<div class="bs-example">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                
+                <th>SUBJECT</th>
+                <th>DETAILS</th>
+                <th>DATE</th>
+				<th>STATUS</th>
+				<!-- <th>LEVEL INCOME</th> -->
+				<!-- <th>REMARK</th> -->
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for message in messages %}
+            <tr>
+                <td>{{ message.subject }}</td>
+                <td>{{ message.details|truncatewords:"7" }}</td>
+                <td>{{ message.date }}</td>
+                <td>{{ message.support_status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div> 
+
+{% endblock %}

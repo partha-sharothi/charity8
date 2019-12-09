@@ -1,0 +1,1092 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+            <div class="row mt-4">
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <!-- <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                        <!-- <i class="icon-settings"></i> -->
+                      <!-- </button> -->
+                    
+                        <!-- <div class="dropdown-menu dropdown-menu-right"> -->
+                          <!-- <a class="dropdown-item" href="#">All Members</a> -->
+                        <!-- </div> -->
+                  
+                    </div>                    
+                    <div>Single Leg Downline</div>
+                    <div class="text-value"></div>
+                  </div>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;"><h1>{{ single_leg }}</h1>
+                    <!-- <canvas class="chart" id="card-chart1" height="70"></canvas> -->
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-info">
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <!-- <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                        <!-- <i class="icon-settings"></i> -->
+                      <!-- </button> -->
+                    
+                      <!-- <div class="dropdown-menu dropdown-menu-right"> -->
+                        
+                          <!-- <a class="dropdown-item" href="#">All Application</a> -->
+                      
+            
+                          <!-- <a class="dropdown-item" href="#">Add Application</a> -->
+                      
+                      <!-- </div>                   -->
+                    </div>                   
+                    <div>Current ammount</div>
+                    <div class="text-value"></div>
+                  </div>
+                  <div class="chart-wrapper mt-3" style="height:70px;"><h1>&nbsp;&nbsp;{{ account }}</h1>
+                    <canvas class="chart" id="card-chart2" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-warning"> 
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <!-- <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                        <!-- <i class="icon-settings"></i> -->
+                      <!-- </button> -->
+                  
+                        <!-- <div class="dropdown-menu dropdown-menu-right"> -->
+                          
+                            <!-- <a class="dropdown-item" href="#">All Donations</a> -->
+                          
+                            <!-- <a class="dropdown-item" href="#">Add Donation</a> -->
+                          
+                        <!-- </div> -->
+                      
+                    </div>
+                    <div>Total Earnings</div>
+                    <div class="text-value"></div>
+                  </div>
+                  <div class="chart-wrapper mt-3" style="height:70px;"><h1>&nbsp;&nbsp;{{ total_income }} </h1>
+                    <canvas class="chart" id="card-chart3" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-danger">
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <!-- <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                        <!-- <i class="icon-settings"></i> -->
+                      <!-- </button> -->
+                      
+                        <!-- <div class="dropdown-menu dropdown-menu-right"> -->
+                        
+                            <!-- <a class="dropdown-item" href="#">All Investments</a> -->
+                        
+                          
+                            <!-- <a class="dropdown-item" href="#">Add Investment</a> -->
+                        
+                        <!-- </div> -->
+                    
+                    </div>                   
+                    <div>Rewards Points</div>
+                    <div class="text-value"></div>
+                  </div>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;"><h1>{{ points }}</h1>
+                    <canvas class="chart" id="card-chart4" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+            </div>
+
+            <!-- /.row-->
+
+
+            <!-- Target -->
+<!-- The text field -->
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Referral URL</span>
+  </div>
+  <input type="text" class="form-control" {% if user.userprofileinfo.confirm and user.is_authenticated %} value="{{ referral_url }}" id="myInput" placeholder="{{ referral_url }}" {% endif %} >
+</div>
+
+<button onclick="myFunction()">Copy URL</button>
+
+{% if user.userprofileinfo.confirm and user.is_authenticated %}
+
+{% else %}
+
+      
+<header class="app-header navbar">
+  <h1><p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc & any user</a></p></h1>	
+
+</header>
+<h1 class="d-lg-none d-md-none d-xl-none"><p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc & any user</a></p></h1>
+
+      {% if user.userprofileinfo.btc_activation %}
+
+            <header class="app-header navbar">
+              <h1><p align="center">activate your account with user</p></h1>	
+  
+            </header>
+            <h1 class="d-lg-none d-md-none d-xl-none"><p align="center">activate your account with user</p></h1>
+            
+      {% elif user.userprofileinfo.user_activation %}
+          <header class="app-header navbar">
+              <h1><p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc</a></p></h1>	
+    
+          </header>
+          <h1 class="d-lg-none d-md-none d-xl-none" ><p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc</a></p></h1>
+
+          
+
+      {% endif %}
+
+
+
+
+{% endif %}
+
+
+                
+<h3 class="text-center text-black">Accounting Level Activity</h3>
+<br>
+
+<div class="container d-none d-lg-block d-xl-block">
+<div class="bs-example">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>levels</th>
+                <th>GlobalDownline</th>
+                <th>Expected Direct <br> Member</th>
+                <th>Actual Direct <br> Member</th>
+				<th>income</th>
+				<th>Achive <br> Date</th>
+				<th>Release <br>date</th>
+				<th>Status</th>
+				
+            </tr>
+        </thead>
+        <tbody>
+
+          
+            <tr>
+                <td>1</td>
+                <td>20 </td>
+                <td>1</td>
+                <td>1</td>
+        <td>20.00</td>
+				<td>          {% for activity in user_activity %}
+                    {% if activity.level == 1 %}
+            {{ activity.start_date }}
+            {% endif %}
+            {% endfor %}</td>
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 1 %}
+        {{ activity.end_date }}
+        {% endif %}
+        {% endfor %}</td>
+				<td>           {% for activity in user_activity %}
+            {% if activity.level == 1 %}
+         {{ activity.level_status }}
+          {% endif %}
+          {% endfor %}</td>
+        
+            </tr>
+            
+            <tr>
+                <td>2</td>
+                <td>40</td>
+                <td>2</td>
+                <td>1</td>
+        <td>30.00</td>
+				<td>         {% for activity in user_activity %}
+            {% if activity.level == 2 %}
+    {{ activity.start_date }}
+    {% endif %}
+    {% endfor %}</td>
+				<td>         {% for activity in user_activity %}
+            {% if activity.level == 2 %}
+    {{ activity.end_date }}
+    {% endif %}
+    {% endfor %}</td>
+        <td>         {% for activity in user_activity %}
+            {% if activity.level == 2 %}
+    {{ activity.level_status }}
+    {% endif %}
+    {% endfor %}</td>
+        
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>100</td>
+                <td>3</td>
+                <td>1</td>
+        <td>80.00</td>
+        
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 3 %}
+    {{ activity.start_date }}
+    {% endif %}
+    {% endfor %}</td>
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 3 %}
+    {{ activity.end_date }}
+    {% endif %}
+    {% endfor %}</td>
+        <td>         {% for activity in user_activity %}
+            {% if activity.level == 3 %}
+    {{ activity.level_status }}
+    {% endif %}
+    {% endfor %}</td>
+        
+            </tr>   
+				<tr>
+                <td>4</td>
+                <td>300</td>
+                <td>4</td>
+                <td>1</td>
+        <td>120.00</td>
+        
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 4 %}
+    {{ activity.start_date }}
+    {% endif %}
+    {% endfor %}</td>
+				<td>         {% for activity in user_activity %}
+            {% if activity.level == 4 %}
+    {{ activity.end_date }}
+    {% endif %}
+    {% endfor %}</td>
+        <td>          {% for activity in user_activity %}
+            {% if activity.level == 4 %}
+    {{ activity.level_status }}
+    {% endif %}
+    {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>5</td>
+                <td>600</td>
+                <td>5</td>
+                <td>1</td>
+        <td>190.00</td>
+        
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 5 %}
+    {{ activity.start_date }}
+    {% endif %}
+    {% endfor %}</td>
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 5 %}
+    {{ activity.end_date }}
+    {% endif %}
+    {% endfor %}</td>
+        <td>          {% for activity in user_activity %}
+            {% if activity.level == 5 %}
+    {{ activity.level_status }}
+    {% endif %}
+    {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>6</td>
+                <td>1100</td>
+                <td>6</td>
+                <td>1</td>
+        <td>250.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 6 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 6 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 6 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>7</td>
+                <td>3000</td>
+                <td>7</td>
+                <td>1</td>
+        <td>400.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 7 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 7 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 7 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>8</td>
+                <td>6000</td>
+                <td>8</td>
+                <td>1</td>
+        <td>700.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 8 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 8 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 8 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>9</td>
+                <td>9000</td>
+                <td>9</td>
+                <td>1</td>
+        <td>900.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 9 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 9 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 9 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>10</td>
+                <td>12000</td>
+                <td>10</td>
+                <td>1</td>
+        <td>1300.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 10 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 10 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 10 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>11</td>
+                <td>18000</td>
+                <td>11</td>
+                <td>1</td>
+        <td>2000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 11 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 11 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 11 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>12</td>
+                <td>22000</td>
+                <td>12</td>
+                <td>1</td>
+        <td>4000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 12 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 12 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 12 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>13</td>
+                <td>26000</td>
+                <td>13</td>
+                <td>1</td>
+        <td>6000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 13 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 13 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 13 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>14</td>
+                <td>32000</td>
+                <td>14</td>
+                <td>1</td>
+        <td>9000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 14 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 14 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 14 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>15</td>
+                <td>37000</td>
+                <td>15</td>
+                <td>1</td>
+        <td>12000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 15 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 15 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 15 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>16</td>
+                <td>41000</td>
+                <td>16</td>
+                <td>1</td>
+        <td>15000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 16 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 16 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 16 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>17</td>
+                <td>45000</td>
+                <td>17</td>
+                <td>1</td>
+        <td>18000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 17 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 17 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 17 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+            <tr>
+                <td>18</td>
+                <td>50000</td>
+                <td>18</td>
+                <td>1</td>
+        <td>30000.00</td>
+        
+				<td> {% for activity in user_activity %}
+          {% if activity.level == 18 %}
+  {{ activity.start_date }}
+  {% endif %}
+  {% endfor %}</td>
+				<td>{% for activity in user_activity %}
+          {% if activity.level == 18 %}
+  {{ activity.end_date }}
+  {% endif %}
+  {% endfor %}</td>
+        <td>{% for activity in user_activity %}
+          {% if activity.level == 18 %}
+  {{ activity.level_status }}
+  {% endif %}
+  {% endfor %}</td>
+        
+            </tr> 
+        </tbody>
+    </table>
+</div>
+</div> 
+
+
+<div class="container d-lg-none d-md-none d-xl-none">
+    <div class="bs-example">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>levels</th>
+                    <th>GlobalDownline</th>
+                    <th>Expected Direct <br> Member</th>
+                    <th>Actual Direct <br> Member</th>
+            <th>income</th>
+            <th>Achive <br> Date</th>
+            <th>Release <br>date</th>
+            <th>Status</th>
+            
+                </tr>
+            </thead>
+            <tbody>
+    
+              
+                <tr>
+                    <td>1</td>
+                    <td>20 </td>
+                    <td>1</td>
+                    <td>1</td>
+            <td>20.00</td>
+            <td>          {% for activity in user_activity %}
+                        {% if activity.level == 1 %}
+                {{ activity.start_date }}
+                {% endif %}
+                {% endfor %}</td>
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 1 %}
+            {{ activity.end_date }}
+            {% endif %}
+            {% endfor %}</td>
+            <td>           {% for activity in user_activity %}
+                {% if activity.level == 1 %}
+             {{ activity.level_status }}
+              {% endif %}
+              {% endfor %}</td>
+            
+                </tr>
+                
+                <tr>
+                    <td>2</td>
+                    <td>40</td>
+                    <td>2</td>
+                    <td>1</td>
+            <td>30.00</td>
+            <td>         {% for activity in user_activity %}
+                {% if activity.level == 2 %}
+        {{ activity.start_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>         {% for activity in user_activity %}
+                {% if activity.level == 2 %}
+        {{ activity.end_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>         {% for activity in user_activity %}
+                {% if activity.level == 2 %}
+        {{ activity.level_status }}
+        {% endif %}
+        {% endfor %}</td>
+            
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>100</td>
+                    <td>3</td>
+                    <td>1</td>
+            <td>80.00</td>
+            
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 3 %}
+        {{ activity.start_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 3 %}
+        {{ activity.end_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>         {% for activity in user_activity %}
+                {% if activity.level == 3 %}
+        {{ activity.level_status }}
+        {% endif %}
+        {% endfor %}</td>
+            
+                </tr>   
+            <tr>
+                    <td>4</td>
+                    <td>300</td>
+                    <td>4</td>
+                    <td>1</td>
+            <td>120.00</td>
+            
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 4 %}
+        {{ activity.start_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>         {% for activity in user_activity %}
+                {% if activity.level == 4 %}
+        {{ activity.end_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 4 %}
+        {{ activity.level_status }}
+        {% endif %}
+        {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>5</td>
+                    <td>600</td>
+                    <td>5</td>
+                    <td>1</td>
+            <td>190.00</td>
+            
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 5 %}
+        {{ activity.start_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 5 %}
+        {{ activity.end_date }}
+        {% endif %}
+        {% endfor %}</td>
+            <td>          {% for activity in user_activity %}
+                {% if activity.level == 5 %}
+        {{ activity.level_status }}
+        {% endif %}
+        {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>6</td>
+                    <td>1100</td>
+                    <td>6</td>
+                    <td>1</td>
+            <td>250.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 6 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 6 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 6 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>7</td>
+                    <td>3000</td>
+                    <td>7</td>
+                    <td>1</td>
+            <td>400.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 7 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 7 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 7 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>8</td>
+                    <td>6000</td>
+                    <td>8</td>
+                    <td>1</td>
+            <td>700.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 8 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 8 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 8 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>9</td>
+                    <td>9000</td>
+                    <td>9</td>
+                    <td>1</td>
+            <td>900.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 9 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 9 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 9 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>10</td>
+                    <td>12000</td>
+                    <td>10</td>
+                    <td>1</td>
+            <td>1300.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 10 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 10 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 10 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>11</td>
+                    <td>18000</td>
+                    <td>11</td>
+                    <td>1</td>
+            <td>2000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 11 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 11 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 11 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>12</td>
+                    <td>22000</td>
+                    <td>12</td>
+                    <td>1</td>
+            <td>4000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 12 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 12 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 12 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>13</td>
+                    <td>26000</td>
+                    <td>13</td>
+                    <td>1</td>
+            <td>6000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 13 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 13 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 13 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>14</td>
+                    <td>32000</td>
+                    <td>14</td>
+                    <td>1</td>
+            <td>9000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 14 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 14 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 14 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>15</td>
+                    <td>37000</td>
+                    <td>15</td>
+                    <td>1</td>
+            <td>12000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 15 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 15 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 15 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>16</td>
+                    <td>41000</td>
+                    <td>16</td>
+                    <td>1</td>
+            <td>15000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 16 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 16 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 16 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>17</td>
+                    <td>45000</td>
+                    <td>17</td>
+                    <td>1</td>
+            <td>18000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 17 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 17 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 17 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+                <tr>
+                    <td>18</td>
+                    <td>50000</td>
+                    <td>18</td>
+                    <td>1</td>
+            <td>30000.00</td>
+            
+            <td> {% for activity in user_activity %}
+              {% if activity.level == 18 %}
+      {{ activity.start_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 18 %}
+      {{ activity.end_date }}
+      {% endif %}
+      {% endfor %}</td>
+            <td>{% for activity in user_activity %}
+              {% if activity.level == 18 %}
+      {{ activity.level_status }}
+      {% endif %}
+      {% endfor %}</td>
+            
+                </tr> 
+            </tbody>
+        </table>
+    </div>
+    </div>  
+
+{% endblock %}
+
+
+{% block extra_script %}
+
+<script>
+  
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>
+
+{% endblock %}

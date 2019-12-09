@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card mx-4 mt-4">
+            <div class="card-body p-4">
+              
+              <p> {{ user.username }}</p><br />
+              <p>please inform support team about your problem.</p>
+            <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3 d-none">
+                        <label for="{{ form.username.id_for_label}}"><strong>{{ form.username.label }}</strong></label>
+                      {% render_field form.username class="form-control w-100" placeholder='Username' %}
+                      {% for error in form.username.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+                    <div class="input-group mb-3">
+                        <label for="{{ form.subject.id_for_label }}"><strong>{{ form.subject.label }}</strong></label>
+                      {% render_field form.subject class="form-control w-100 " rows="2" placeholder='subject' %}
+                        {% for error in form.subject.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+
+                    <div class="input-group mb-3">
+                        <label for="{{ form.details.id_for_label }}"><strong>{{ form.details.label }}</strong></label>
+                      {% render_field form.details class="form-control w-100" placeholder='details' %}
+                      {% for error in form.details.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+              </div>
+                    
+                    <button class="btn btn-block btn-success mt-4" type="submit">Submit</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

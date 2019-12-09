@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<h3 class="text-center text-black">LEVEL INCOME</h3>
+<br>
+
+<div class="container">
+<div class="bs-example">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>SR.NO.</th>
+                <th>DATE</th>
+                <th>USERNAME</th>
+                <th>FULL NAME</th>
+				<th>AMOUNT</th>
+				<th>LEVEL INCOME</th>
+				<th>REMARK</th>
+            </tr>
+        </thead>
+        <tbody>
+
+          
+            <tr>
+                <td>1</td>
+                <td>20 </td>
+                <td>1</td>
+                <td>1</td>
+        <td>10.00</td>
+				<td>          {% for activity in user_activity %}
+                    {% if activity.level == 1 %}
+            {{ activity.start_date }}
+            {% endif %}
+            {% endfor %}</td>
+				<td>          {% for activity in user_activity %}
+            {% if activity.level == 1 %}
+        {{ activity.end_date }}
+        {% endif %}
+        {% endfor %}</td>
+        
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div> 
+ 
+
+
+{% endblock %}

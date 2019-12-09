@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CCL Portal is the dashboard for Country Club and Library Website">
+    <meta name="author" content="CCL">
+    <meta name="keyword" content="CCL, CCL Portal, Country, Club, Library">
+    <title>Charity</title>
+    <!-- Icons-->
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link href="{% static 'vendors/@coreui/icons/css/coreui-icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/pace-progress/css/pace.min.css' %}" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script>
+  </head>
+  <body class="app flex-row align-items-center">
+    <div class="container">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+    {% block extra_script %}{%endblock%}
+    <!-- CoreUI and necessary plugins-->
+    <script src="{% static 'vendors/jquery/js/jquery.min.js' %}"></script>
+    <script src="{% static 'vendors/popper.js/js/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/pace-progress/js/pace.min.js' %}"></script>
+    <script src="{% static 'vendors/perfect-scrollbar/js/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'vendors/@coreui/coreui/js/coreui.min.js' %}"></script>
+    <script>
+      {% block extra_js %}{% endblock %}
+    </script>
+  </body>
+</html>
