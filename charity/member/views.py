@@ -38,7 +38,7 @@ def return_test(request):
 @login_required
 def own_activation(request):
     user_id = request.user.id
-    user_is = get_object_or_404(UserProfileInfo, id=user_id)
+    user_is = get_object_or_404(UserProfileInfo, user_profile=user_id)
     
     if (user_is.user_activation == True) and (user_is.btc_activation == True):
         if user_is.confirm == False:
@@ -547,7 +547,7 @@ def home12(request):
     ########-----------single_leg----start------#####################
     def single_line(request, *args, **kwargs):
         # user_id = kwargs.get('pk')
-        user=request.user
+        user=request.user.id
         user = get_object_or_404(UserProfileInfo, user_profile=user)
         if user.confirm == True:
             users=UserProfileInfo.objects.filter(confirmation_date__gt = user.confirmation_date)
@@ -611,7 +611,7 @@ def home12(request):
     user_activitys(request)
 
     user_id = request.user.id
-    user_is = get_object_or_404(UserProfileInfo, id=user_id)
+    user_is = get_object_or_404(UserProfileInfo, user_profile=user_id)
     level_income = user_is.level_income
     total_income = level_income + income
     account_ammount = user_is.account
@@ -632,7 +632,7 @@ def home12(request):
     return render(request,'index_dash.html',{'reward':reward, 'user_activity':user_activity,'referral_url':referral_url,'single_leg':single_leg,'points':points,'account':account_ammount,'total_income':total_income}) 
 
 def bitcoin_detail(request, *args, **kwargs):
-    user_id = request.user
+    user_id = request.user.id
     profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
     user_btcs = BtcAddress.objects.filter(user=profile).values('btc_address')
     btc_list = [entry for entry in user_btcs]
@@ -658,7 +658,7 @@ def bitcoin_detail(request, *args, **kwargs):
 
 def downline_member_list(request, *args, **kwargs):
     # user = kwargs.get('pk')
-    user_id = request.user
+    user_id = request.user.id
     user = get_object_or_404(UserProfileInfo, user_profile=user_id)
     # k=Application.objects.all()
     # print(dir(request))
@@ -707,7 +707,7 @@ class UserCreateViewDash(generic.View):
         user_id = kwargs.get('pk')
         # user_id = self.request.user
         profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
-        referral_user = get_object_or_404(User, id=profile.id)
+        referral_user = get_object_or_404(User, id=user_id)
         profile_info_form = UserProfileInfoForm()
         user_info_form = UserForm()
         return render(request, 'form.html', {'referral_user': referral_user, 'profile_info_form': profile_info_form, 'user_info_form':user_info_form})
@@ -755,7 +755,7 @@ class UserUpdateViewDash(generic.View):
     def post(self, request, *args, **kwargs): 
         # user_id = kwargs.get('pk')
         
-        user_id = self.request.user
+        user_id = self.request.user.id
        
 
         profile = get_object_or_404(UserProfileInfo, user_profile=user_id) 
@@ -790,7 +790,7 @@ class DirectSponsorTableView(SingleTableView):
 
     def get_queryset(self, *args, **kwargs):
         user_id = self.request.user.id
-        user = get_object_or_404(UserProfileInfo, id=user_id)
+        user = get_object_or_404(UserProfileInfo, user_profile=user_id)
         j=user.sponsored.filter(confirm=True)
         return j
 
@@ -804,7 +804,7 @@ class SingleLineListView(SingleTableView):
     paginate_by = 30
     def get_queryset(self, *args, **kwargs):
         user_id = self.request.user.id  
-        application = get_object_or_404(UserProfileInfo, id=user_id)
+        application = get_object_or_404(UserProfileInfo, user_profile=user_id)
         k=UserProfileInfo.objects.filter(application_date__gt = application.application_date,confirm=True).order_by('confirmation_date').reverse()
 
         return k  
@@ -812,7 +812,7 @@ class SingleLineListView(SingleTableView):
 
 def level_income(request, *args, **kwargs):
     user_id = kwargs.get('pk')
-    user = get_object_or_404(UserProfileInfo, id=user_id)
+    user = get_object_or_404(UserProfileInfo, user_profile=user_id)
     j=user.sponsored.all()
     return render(request, 'level_income.html')
 
@@ -823,7 +823,7 @@ def activate_account(request, *args, **kwargs):
     if request.method == "POST":
         form_is = AccoutActivationForm(data=request.POST)
         if form_is.is_valid():
-            x = form_is.cleaned_data['username']
+            x = form_is.cleaned_data['username'].lower()
             mr_x = get_object_or_404(User, username = x)
             z = get_object_or_404(UserProfileInfo,user_profile = mr_x)
             y = form_is.cleaned_data['amount']
@@ -832,7 +832,7 @@ def activate_account(request, *args, **kwargs):
             # print(form_is.cleaned_data['amount'])
 
             if y == 25 and z.confirm==False:
-                user_id = request.user
+                user_id = request.user.id
                 profile = get_object_or_404(UserProfileInfo, user_profile=user_id) 
                 if profile.account>=25 and z.user_activation == False :
                     profile.account = profile.account-25
@@ -854,7 +854,7 @@ def withdrawal_fund(request, *args, **kwargs):
     # profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
     # btcs = BtcAddress.objects.filter(user=profile)
 
-    user_id = request.user
+    user_id = request.user.id
     profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
     user_btcs = BtcAddress.objects.filter(user=profile).values('btc_address')
     btc_list = [entry for entry in user_btcs]
@@ -870,12 +870,12 @@ def withdrawal_fund(request, *args, **kwargs):
 
         
         if form_is.is_valid():
-            user_id = request.user
+            user_id = request.user.id
             profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
             print(profile)
             print(form_is.cleaned_data['amount'])
             
-            if profile.account*(30/100)>=form_is.cleaned_data['amount']:
+            if (profile.account*(30/100))>=form_is.cleaned_data['amount']:
                 
                 if form_is.cleaned_data['amount']>=10 and form_is.cleaned_data['amount']<=200 :
                 
@@ -918,7 +918,7 @@ class WithdrawalReport(SingleTableView):
     template_name = 'widthdraw_history.html'
 
     def get_queryset(self, *args, **kwargs):
-        user_id = self.request.user
+        user_id = self.request.user.id
         user_is = get_object_or_404(UserProfileInfo, user_profile=user_id)
         reports = WithdrawalHistry.objects.filter(user=user_is)
         
@@ -942,7 +942,7 @@ class HistryTableView(SingleTableMixin,ListView):
     
     def get_queryset(self, *args, **kwargs):
         user_id = self.request.user.id  
-        userprofile = get_object_or_404(UserProfileInfo, id=user_id)
+        userprofile = get_object_or_404(UserProfileInfo, user_profile=user_id)
 
         k = Histry.objects.filter(user=userprofile).order_by('invoice_date').reverse()
 
@@ -1003,13 +1003,13 @@ def btc_activarion_button(request):
 class SupportCreateView(CreateView):
 
     def get(self, request, *args, **kwargs):
-        user_id = request.user
+        user_id = request.user.id
         profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
         context = {'form': SupportForm()}
         return render(request, 'support_form.html', context)
 
     def post(self, request, *args, **kwargs):
-        user_id = request.user
+        user_id = request.user.id
         profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
         form = SupportForm(data=request.POST)
         if form.is_valid():
@@ -1026,7 +1026,7 @@ class SupportListView(ListView):
     template_name = 'support_list.html'
     def get_queryset(self, *args, **kwargs):
         user_id = self.request.user.id  
-        userprofile = get_object_or_404(UserProfileInfo, id=user_id)
+        userprofile = get_object_or_404(UserProfileInfo, user_profile=user_id)
         k = Support.objects.filter(user=userprofile)
 
         return k 
