@@ -724,7 +724,7 @@ class UserCreateViewDash(generic.View):
         # print(profile_info_form.is_valid())
         # print(user_info_form.is_valid())
         if user_info_form.is_valid() and profile_info_form.is_valid():
-            user = user_info_form.save(commit=False)
+            user = user_info_form.save()
             user.set_password(user.password)
             user.is_staff = True
             user.save()
