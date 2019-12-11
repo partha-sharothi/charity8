@@ -746,7 +746,7 @@ class UserUpdateViewDash(generic.View):
     def get(self, request, *args, **kwargs):
         # user_id = kwargs.get('pk')
         # user_id = self.request.user.id
-        user_id = request.user.id
+        user_id = request.user
         profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
         user = get_object_or_404(User, id=profile.id)
         profile_info_form = UserProfileInfoForm(instance=profile)
@@ -757,7 +757,7 @@ class UserUpdateViewDash(generic.View):
         # user_id = kwargs.get('pk')
         
         # user_id = self.request.user.id
-        user_id = request.user.id
+        user_id = request.user
         profile = get_object_or_404(UserProfileInfo, user_profile=user_id) 
         user = get_object_or_404(User, id=profile.id)  
 
