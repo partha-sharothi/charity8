@@ -823,7 +823,7 @@ def activate_account(request, *args, **kwargs):
     if request.method == "POST":
         form_is = AccoutActivationForm(data=request.POST)
         if form_is.is_valid():
-            x = form_is.cleaned_data['username'].lower()
+            x = form_is.cleaned_data['username']
             mr_x = get_object_or_404(User, username = x)
             z = get_object_or_404(UserProfileInfo,user_profile = mr_x)
             y = form_is.cleaned_data['amount']
