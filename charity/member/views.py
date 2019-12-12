@@ -746,9 +746,9 @@ class UserUpdateViewDash(generic.View):
     def get(self, request, *args, **kwargs):
         # user_id = kwargs.get('pk')
         # user_id = self.request.user.id
-        user_id = request.user
-        profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
-        user = get_object_or_404(User, id=profile.id)
+        user_id = request.user.id
+        user = get_object_or_404(User, id=user_id)
+        profile = get_object_or_404(UserProfileInfo, user_profile=user)
         profile_info_form = UserProfileInfoForm(instance=profile)
         user_info_form = UserFormUpdate(instance=user)
         return render(request, 'user_update_form.html', {'profile_info_form': profile_info_form, 'user_info_form':user_info_form})
@@ -757,9 +757,9 @@ class UserUpdateViewDash(generic.View):
         # user_id = kwargs.get('pk')
         
         # user_id = self.request.user.id
-        user_id = request.user
-        profile = get_object_or_404(UserProfileInfo, user_profile=user_id) 
-        user = get_object_or_404(User, id=profile.id)  
+        user_id = request.user.id
+        user = get_object_or_404(User, id=user_id)
+        profile = get_object_or_404(UserProfileInfo, user_profile=user) 
 
         profile_info_form = UserProfileInfoForm(data=request.POST, instance=profile)
         user_info_form = UserFormUpdate(data=request.POST, instance=user)
@@ -964,38 +964,46 @@ client = Client(api_key=API_KEY)
 
 def btc_activarion_button(request):
     # user_id = request.user
-    user = get_object_or_404(UserProfileInfo, user_profile=request)
-    print(user.btc_activation)
-    charge_list = client.charge.list()['data']  #[0]['metadata']['email']
-    charges=[]
-    charge_custom_data_list = []
-    charge_name_list =[]
-    charge_email_list =[]
-    for charge in range(len(charge_list)):
-        if 'custom' in charge_list[charge]['metadata']:
-            charges.append(charge_list[charge])
-            if charge_list[charge]['timeline'][1]['status'] != 'CANCELED':
-                charge_custom_data = charge_list[charge]['metadata']['custom']
-                charge_custom_data_list.append(charge_custom_data)
-        if 'email' in charge_list[charge]['metadata']:
-            if charge_list[charge]['timeline'][1]['status'] != 'CANCELED':
-                charge_email = charge_list[charge]['metadata']['email']
-                charge_email_list.append(charge_email)
-        if 'name' in charge_list[charge]['metadata']:
-            if charge_list[charge]['timeline'][1]['status'] != 'CANCELED':
-                charge_name = charge_list[charge]['metadata']['name']
-                charge_name_list.append(charge_name)
 
-    print(user.btc_activation)
-    print(str(request.username))
-    print(str(request.email))
-    print(charge_name_list)
-    print(charge_email_list)
-    if (str(request.username) in charge_name_list) and (str(request.email) in charge_email_list):
-        user.btc_activation = True
-        user.save()
+    try:
+        user = get_object_or_404(UserProfileInfo, user_profile=request)
+        print(user.btc_activation)
+        charge_list = client.charge.list()['data']  #[0]['metadata']['email']
+        charges=[]
+        charge_custom_data_list = []
+        charge_name_list =[]
+        charge_email_list =[]
+        for charge in range(len(charge_list)):
+            if 'custom' in charge_list[charge]['metadata']:
+                charges.append(charge_list[charge])
+                if charge_list[charge]['timeline'][1]['status'] != 'CANCELED':
+                    charge_custom_data = charge_list[charge]['metadata']['custom']
+                    charge_custom_data_list.append(charge_custom_data)
+            if 'email' in charge_list[charge]['metadata']:
+                if charge_list[charge]['timeline'][1]['status'] != 'CANCELED':
+                    charge_email = charge_list[charge]['metadata']['email']
+                    charge_email_list.append(charge_email)
+            if 'name' in charge_list[charge]['metadata']:
+                if charge_list[charge]['timeline'][1]['status'] != 'CANCELED':
+                    charge_name = charge_list[charge]['metadata']['name']
+                    charge_name_list.append(charge_name)
+
+        print(user.btc_activation)
+        print(str(request.username))
+        print(str(request.email))
+        print(charge_name_list)
+        print(charge_email_list)
+        if (str(request.username) in charge_name_list) and (str(request.email) in charge_email_list):
+            user.btc_activation = True
+            user.save()
         return redirect('/go/')
+        
+    except:
+        return redirect('/go/')
+    
+
     return None
+
 
 
 
