@@ -832,7 +832,7 @@ def activate_account(request, *args, **kwargs):
             # print(form_is.cleaned_data['amount'])
 
             if y == 25 and z.confirm==False:
-                user_id = request.user.id
+                user_id = request.user
                 profile = get_object_or_404(UserProfileInfo, user_profile=user_id) 
                 if profile.account>=25 and z.user_activation == False :
                     profile.account = profile.account-25
