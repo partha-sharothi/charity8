@@ -825,15 +825,16 @@ def activate_account(request, *args, **kwargs):
         if form_is.is_valid():
             x = form_is.cleaned_data['username']
             mr_x = get_object_or_404(User, username = x)
-            z = get_object_or_404(UserProfileInfo,user_profile = mr_x)
+            z = get_object_or_404(UserProfileInfo, user_profile = mr_x)
             y = form_is.cleaned_data['amount']
             # import pdb;pdb.set_trace()
             # print(form_is.cleaned_data['username'])
             # print(form_is.cleaned_data['amount'])
 
             if y == 25 and z.confirm==False:
-                user_id = request.user
-                profile = get_object_or_404(UserProfileInfo, user_profile=user_id) 
+                user_id = request.user.id
+                user_is = get_object_or_404(User, id=user_id)
+                profile = get_object_or_404(UserProfileInfo, user_profile=user_is) 
                 if profile.account>=25 and z.user_activation == False :
                     profile.account = profile.account-25
                     profile.save()
