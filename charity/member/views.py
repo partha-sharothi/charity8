@@ -826,16 +826,16 @@ def activate_account(request, *args, **kwargs):
             x = form_is.cleaned_data['username']
             mr_x = get_object_or_404(User, username = x)
             z = get_object_or_404(UserProfileInfo, user_profile = mr_x)
-            y = form_is.cleaned_data['amount']
+            y = int(form_is.cleaned_data['amount'])
             # import pdb;pdb.set_trace()
             # print(form_is.cleaned_data['username'])
             # print(form_is.cleaned_data['amount'])
 
-            if y == 25 and z.confirm==False:
+            if (y == 25) and (z.confirm==False):
                 user_id = request.user.id
                 user_is = get_object_or_404(User, id=user_id)
-                profile = get_object_or_404(UserProfileInfo, user_profile=user_is) 
-                if profile.account>=25 and z.user_activation == False :
+                profile = get_object_or_404(UserProfileInfo, user_profile=user_is)
+                if (profile.account >= 25) and (z.user_activation==False):
                     profile.account = profile.account-25
                     profile.save()
                     create_histry(user=profile,person=x,date_of_activation=utc.localize(datetime.now()))
