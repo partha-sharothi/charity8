@@ -131,8 +131,8 @@
   <h1><p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc & any user</a></p></h1>	
 
 </header>
-<h1 class="d-lg-none d-md-none d-xl-none"><p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc & any user</a></p></h1>
 
+<h1 class="d-lg-none d-md-none d-xl-none">{% if user.userprofileinfo.btc_activation %}{% else %}{% if user.userprofileinfo.user_activation %} {% else %}<p align="center"><a href="{% url 'member:rendaring' %}">activate your account with btc & any user</a></p>{% endif %}{% endif %}</h1>
       {% if user.userprofileinfo.btc_activation %}
 
             <header class="app-header navbar">
