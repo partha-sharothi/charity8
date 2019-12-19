@@ -270,6 +270,12 @@
                   <a class="nav-link" href="#">
                     <i class="nav-icon fa fa-cubes"></i> Contuct Us</a>
                 </li>
+                {% if user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'member:widthrawal_admin' %}">
+                    <i class="nav-icon fa fa-cubes"></i> widthrawl maintain</a>
+                </li>
+                {% endif %}
 
 
           </ul>

@@ -30,6 +30,9 @@ urlpatterns = [
     path('histry/<int:pk>/',views.HistryTableView.as_view(), name='histry'),
     path('support/<int:pk>',views.SupportCreateView.as_view(), name='support_create'),
     path('user_support_list/<int:pk>',views.SupportListView.as_view(), name='user_support_list'),
+    path('widthrawal_admin/',views.withdrawalhistryfilterview, name='widthrawal_admin'),
+    path('widthrawal_admin/confirm/<int:pk>/<int:widthra_id>/',views.widthrawal_confirm, name='widthrawal_confirm'),
+    path('widthrawal_admin/cancel/<int:pk>/<int:widthra_id>/',views.widthrawal_cancel, name='widthrawal_cancel'),
     # path('bitcoin/',views.bitcoinpay, name='rendaring'),
     # path('coinbase_webhook/', views.coinbaseWebhook, name="coinbase_webhook"),
 

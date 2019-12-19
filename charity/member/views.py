@@ -1108,6 +1108,44 @@ def bitcoinpay(request):
 
 
 
+#>>>>---------------------->> ouly for admin <<-----------<<<
+
+
+from .filters import WithdrawalHistryFilter
+
+
+class UserListTableView(SingleTableView):
+     model = WithdrawalHistry
+     table_class = WithdrawalHistryTable
+     context_object_name = 'widthrawal'
+     template_name = 'admin_widthrawal.html'
+
+
+
+def withdrawalhistryfilterview(request):
+    user_list = WithdrawalHistry.objects.all()
+    user_filter = WithdrawalHistryFilter(request.GET, queryset=user_list)
+    return render(request, 'admin_widthrawal.html', {'filter': user_filter})
+
+
+def widthrawal_confirm(request, pk,widthra_id):
+    user=get_object_or_404(User, id=pk)
+    profile = get_object_or_404(UserProfileInfo, user_profile=user)
+    withdwra =  WithdrawalHistry.objects.get(user=profile,id=widthra_id)
+    withdwra.payment_status = 'confirm'
+    withdwra.save()
+    return redirect('/widthrawal_admin/')
+
+
+def widthrawal_cancel(request, pk,widthra_id):
+    user=get_object_or_404(User, id=pk)
+    profile = get_object_or_404(UserProfileInfo, user_profile=user)
+    withdwra = WithdrawalHistry.objects.get(user=profile,id=widthra_id)
+    profile.account = profile.account + withdwra.ammount
+    profile.save()
+    withdwra.payment_status = 'cancel'
+    withdwra.save()
+    return redirect('/widthrawal_admin/')
 
 
 

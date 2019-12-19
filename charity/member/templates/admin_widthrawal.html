@@ -1,0 +1,65 @@
+{% extends 'base_no_sidebar.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <form method="get">
+    <div class="well">
+      <h4 style="margin-top: 0">Filter</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.user.label_tag }}
+          {% render_field filter.form.user class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3" >
+          {{ filter.form.date.label_tag }}
+          {% render_field filter.form.date class="form-control" type="date" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.payment_status.label_tag }}
+          {% render_field filter.form.payment_status class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.btc_address.label_tag }}
+          {% render_field filter.form.btc_address class="form-control" %}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+    </div>
+  </form>
+<br /> <br />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Amount</th>
+        <th>BTC Address</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in filter.qs %}
+        <tr>
+          <td>{{ user.user }}</td>
+          <td>{{ user.ammount }}</td>
+          <td>{{ user.btc_address }}</td>
+          <td>{{ user.date }}</td>
+          <td>{{ user.payment_status }}</td>
+          <td>
+            {% if user.payment_status == 'pending' %}
+            <button><a href='{% url "member:widthrawal_confirm" pk=user.user.pk widthra_id=user.pk %}'>Confirm</a></button><button><a href='{% url "member:widthrawal_cancel" pk=user.user.pk widthra_id=user.pk %}'>Cancel</a></button> 
+          
+            {% endif %}
+        </td>
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
