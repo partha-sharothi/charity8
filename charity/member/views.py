@@ -705,7 +705,7 @@ def downline_member_list(request, *args, **kwargs):
 
 
 
-class UserCreateViewDash(LoginRequiredMixin, generic.View):
+class UserCreateViewDash(generic.View):
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
