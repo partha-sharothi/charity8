@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfileInfo, Activity, create_histry , Histry, WithdrawalHistry, BtcAddress, Support
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .tables import UserInfoTable ,HistryTable, WithdrawalHistryTable
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -631,6 +632,8 @@ def home12(request):
 
     return render(request,'index_dash.html',{'reward':reward, 'user_activity':user_activity,'referral_url':referral_url,'single_leg':single_leg,'points':points,'account':account_ammount,'total_income':total_income}) 
 
+
+@login_required
 def bitcoin_detail(request, *args, **kwargs):
     user_id = request.user.id
     profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
@@ -656,6 +659,7 @@ def bitcoin_detail(request, *args, **kwargs):
     return render(request, 'bitcoin_detail.html',{'form':form }) 
 
 
+@login_required
 def downline_member_list(request, *args, **kwargs):
     # user = kwargs.get('pk')
     user_id = request.user.id
@@ -701,7 +705,7 @@ def downline_member_list(request, *args, **kwargs):
 
 
 
-class UserCreateViewDash(generic.View):
+class UserCreateViewDash(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('pk')
@@ -741,7 +745,7 @@ class UserCreateViewDash(generic.View):
 
 
 
-class UserUpdateViewDash(generic.View):
+class UserUpdateViewDash(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         # user_id = kwargs.get('pk')
@@ -782,7 +786,7 @@ class UserUpdateViewDash(generic.View):
 
 
     
-class DirectSponsorTableView(SingleTableView):
+class DirectSponsorTableView(LoginRequiredMixin, SingleTableView):
     model = UserProfileInfo
     table_class = UserInfoTable
     context_object_name = 'applications'
@@ -796,7 +800,7 @@ class DirectSponsorTableView(SingleTableView):
 
 
 # from .tables import SingleLegUserTable
-class SingleLineListView(SingleTableView):
+class SingleLineListView(LoginRequiredMixin, SingleTableView):
     model = UserProfileInfo
     # table_class = SingleLegUserTable
     context_object_name = 'applications'
@@ -810,6 +814,7 @@ class SingleLineListView(SingleTableView):
         return k  
 
 
+@login_required
 def level_income(request, *args, **kwargs):
     user_id = kwargs.get('pk')
     user = get_object_or_404(UserProfileInfo, user_profile=user_id)
@@ -818,7 +823,7 @@ def level_income(request, *args, **kwargs):
 
    
 
-
+@login_required
 def activate_account(request, *args, **kwargs):
     if request.method == "POST":
         form_is = AccoutActivationForm(data=request.POST)
@@ -849,7 +854,7 @@ def activate_account(request, *args, **kwargs):
 
     return render(request, 'activate_account.html',{'form':form}) 
 
-
+@login_required
 def withdrawal_fund(request, *args, **kwargs):
     # user_id = request.user
     # profile = get_object_or_404(UserProfileInfo, user_profile=user_id)
@@ -908,11 +913,12 @@ def withdrawal_fund(request, *args, **kwargs):
 
 
 
+@login_required
 def reward_income(request, *args, **kwargs):
     return render(request, 'reward_income.html') 
 
 
-class WithdrawalReport(SingleTableView):
+class WithdrawalReport(LoginRequiredMixin, SingleTableView):
     model = WithdrawalHistry
     table_class = WithdrawalHistryTable
     # context_object_name = 'applications'
@@ -934,7 +940,7 @@ class WithdrawalReport(SingleTableView):
 #     return render(request, 'histry.html',{'histry':histry})
     
 
-class HistryTableView(SingleTableMixin,ListView):
+class HistryTableView(LoginRequiredMixin, SingleTableMixin,ListView):
        
     table_class = HistryTable
     
@@ -952,6 +958,8 @@ class HistryTableView(SingleTableMixin,ListView):
 
 
 #################-------------------->>>>>>>btc<<<<<<<<<<<<--------------##########
+
+@login_required
 def web_hook(request):
     return render(request,'cryptobox_template.html')
 
@@ -1009,7 +1017,7 @@ def btc_activarion_button(request):
 
 
 ######------------------->support<------------------#########
-class SupportCreateView(CreateView):
+class SupportCreateView(LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
         user_id = request.user.id
@@ -1029,7 +1037,7 @@ class SupportCreateView(CreateView):
         return render(request, 'support_form.html', {'form': form})
 
 
-class SupportListView(ListView):
+class SupportListView(LoginRequiredMixin, ListView):
     model = Support
     context_object_name = "messages"
     template_name = 'support_list.html'
@@ -1121,13 +1129,13 @@ class UserListTableView(SingleTableView):
      template_name = 'admin_widthrawal.html'
 
 
-
+@login_required
 def withdrawalhistryfilterview(request):
     user_list = WithdrawalHistry.objects.all()
     user_filter = WithdrawalHistryFilter(request.GET, queryset=user_list)
     return render(request, 'admin_widthrawal.html', {'filter': user_filter})
 
-
+@login_required
 def widthrawal_confirm(request, pk,widthra_id):
     user=get_object_or_404(User, id=pk)
     profile = get_object_or_404(UserProfileInfo, user_profile=user)
@@ -1136,7 +1144,7 @@ def widthrawal_confirm(request, pk,widthra_id):
     withdwra.save()
     return redirect('/widthrawal_admin/')
 
-
+@login_required
 def widthrawal_cancel(request, pk,widthra_id):
     user=get_object_or_404(User, id=pk)
     profile = get_object_or_404(UserProfileInfo, user_profile=user)
