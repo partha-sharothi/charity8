@@ -1,5 +1,3 @@
-
-
 {% extends 'base.html' %}
 
 {% load widget_tweaks %}
@@ -10,21 +8,26 @@
           <div class="card mx-4 mt-4">
             <div class="card-body p-4">
               <h3 class="pb-4 text-center">WITHDRAWAL FUND</h3>
-              <h5 class="pb-4 text-center">your current account balance is {{ user.userprofileinfo.account }}$</h5>
+              <h5 class="pb-4 text-center">your current account balance is <span id="account">{{ user.userprofileinfo.account }}</span>$</h5>
               <h6 class="pb-4 text-center">{{ user.username }}</h6>
               <p>your btc address is {{ btc }}</p>
               <p>If you want to change it, Please inform in support .</p>
+              <div id="box1" class="card-body p-4">you can withdraw in 15'th and 28'th day of the month </div>
+            <div id="box2" class="d-none">
             <form method="POST">
                     {% csrf_token %}
 
 
            <div class="input-group mb-3">
             <label for="{{ form.amount.id_for_label }}"><strong>{{ form.amount.label }}</strong></label>
-            {% render_field form.amount class="form-control w-100" placeholder='amount' %}
+            {% render_field form.amount class="form-control w-100" id='amount' placeholder='amount' onkeyup='check()'; %}
             {% for error in form.amount.errors %}
             <div class="text-danger">{{ error }}</div>
           {% endfor %}
          </div>
+
+         <div id = 'message'></div>
+
 
 <!-- 
              <div class="input-group mb-3">
@@ -36,10 +39,37 @@
                 </div> -->
                     <button class="btn btn-block btn-success mt-4" type="submit">Submit</button>
             </form>
+          </div>
             </div>
           </div>
         </div>
       </div>
 
 
-{% endblock %}      
+{% endblock %}     
+
+{% block extra_script %}
+
+<script>
+
+  var check = function() {
+    if (Number(document.getElementById('amount').value) <=
+      Number(document.getElementById('account').innerText)*(30/100) ){
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'Enter a amount at best 30% of your current balance';
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'Enter a amount at best 30% of your current balance';
+    }
+  }
+  
+  var dt = new Date();
+var x = dt.getDate();
+if (x==15 || x==28){
+  document.getElementById("box2").className = "";
+  document.getElementById("box1").className ="d-none";
+};
+
+</script>
+
+{% endblock %}   

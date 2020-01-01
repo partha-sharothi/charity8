@@ -883,7 +883,7 @@ def withdrawal_fund(request, *args, **kwargs):
             
             if (profile.account*(30/100))>=form_is.cleaned_data['amount']:
                 
-                if form_is.cleaned_data['amount']>=10 and form_is.cleaned_data['amount']<=200 :
+                if form_is.cleaned_data['amount']>=30 and form_is.cleaned_data['amount']<=200 :
                 
                     widthdra = WithdrawalHistry.objects.create()
                     widthdra.user = profile
@@ -895,8 +895,8 @@ def withdrawal_fund(request, *args, **kwargs):
                     profile.save()
                     widthdra.save()
 
-                elif form_is.cleaned_data['amount']<10 :
-                    return HttpResponse("<h1>Please enter amount at least 10$ </h1>")
+                elif form_is.cleaned_data['amount']<30 :
+                    return HttpResponse("<h1>Please enter amount at least 30$ </h1>")
                 else:
                     return HttpResponse("<h1>Please enter amount at best 200$ </h1>")
             else:
